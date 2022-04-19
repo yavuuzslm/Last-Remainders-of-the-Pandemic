@@ -1,16 +1,19 @@
 package com.lastremaindersofthepandemic.com;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -21,7 +24,6 @@ public class HomePage implements Screen {
     private AssetManager assetManager;
     final private Skin skin;
     private Table homeScreenTable;
-    private GameScreen gameScreen;
     final private MainGame mainGame;
 
 
@@ -38,11 +40,11 @@ public class HomePage implements Screen {
         homeScreenTable = new Table();
         homeScreenTable.setFillParent(true);
         stage.addActor(homeScreenTable);
-        addButton("Play").addListener(new ClickListener() {
+        Gdx.input.setInputProcessor(stage);
+        addButton("Play").addListener(new ChangeListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                gameScreen = new GameScreen();
-                mainGame.switchScreen(gameScreen);
+            public void changed(ChangeEvent event, Actor actor) {
+                mainGame.setScreen(new GameWorld());
                 dispose();
             }
         }
@@ -57,14 +59,14 @@ public class HomePage implements Screen {
             }
         }
         );
-        Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
+        stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
 
     }

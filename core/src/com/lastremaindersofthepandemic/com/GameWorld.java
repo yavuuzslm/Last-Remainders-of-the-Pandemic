@@ -2,6 +2,8 @@ package com.lastremaindersofthepandemic.com;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,7 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
-public class GameWorld extends ApplicationAdapter {
+public class GameWorld implements Screen {
     SpriteBatch batch;
     Texture img;
     OrthographicCamera camera;
@@ -34,13 +36,10 @@ public class GameWorld extends ApplicationAdapter {
     //constructor
     public GameWorld() {
         create();
-        render();
     }
 
 
-
-    @Override
-    public void create () {
+    public void create() {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
@@ -52,8 +51,9 @@ public class GameWorld extends ApplicationAdapter {
 
     }
 
+
     @Override
-    public void render () {
+    public void render(float delta) {
         Gdx.gl.glClearColor(0,0,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -92,6 +92,27 @@ public class GameWorld extends ApplicationAdapter {
 
         //batch.draw(img, 0, 0);
         batch.end();
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     @Override
@@ -100,34 +121,6 @@ public class GameWorld extends ApplicationAdapter {
         img.dispose();
     }
 
-    public void update(float delta) {
-        if (control.down) {
-            direction_y = -1;
-        }
-        if (control.up) {
-            direction_y = 1;
-        }
-        if (control.right) {
-            direction_x = 1;
-        }
-        if (control.left) {
-            direction_x = -1;
-        }
-
-        camera.position.x += direction_x*speed;
-        camera.position.y += direction_y*speed;
-        camera.update();
-
-        //game draw
-        batch.setProjectionMatrix(camera.combined);
-        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
-
-        //ScreenUtils.clear(1, 0, 0, 1);
-        batch.begin();
-        //batch.draw(img, 0, 0);
-        batch.end();
-    }
 
     public void show() {
         Gdx.input.setInputProcessor(control);
