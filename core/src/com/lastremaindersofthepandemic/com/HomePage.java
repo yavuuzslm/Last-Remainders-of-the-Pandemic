@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,19 +15,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class HomePage extends ScreenAdapter implements Screen {
+public class HomePage implements Screen {
     private Stage stage;
     private Viewport viewport;
     private AssetManager assetManager;
-    private Skin skin;
+    final private Skin skin;
     private Table homeScreenTable;
-    private GameWorld game1;
-    private MainGame mainGame;
+    private GameScreen gameScreen;
+    final private MainGame mainGame;
 
 
-    public HomePage(AssetManager assetManager) {
+    public HomePage(MainGame game,AssetManager assetManager) {
         this.assetManager = assetManager;
         skin = assetManager.get(Assets.skinDescriptor);
+        this.mainGame = game;
     }
 
     @Override
@@ -36,7 +38,15 @@ public class HomePage extends ScreenAdapter implements Screen {
         homeScreenTable = new Table();
         homeScreenTable.setFillParent(true);
         stage.addActor(homeScreenTable);
-        addButton("Play");
+        addButton("Play").addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                gameScreen = new GameScreen();
+                mainGame.switchScreen(gameScreen);
+                dispose();
+            }
+        }
+        );
         addButton("Options");
         addButton("About");
         addButton("Quit").addListener(new ClickListener()
@@ -63,6 +73,27 @@ public class HomePage extends ScreenAdapter implements Screen {
     public void resize(int width, int height) {
         viewport.update(width, height);
     }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
+
     private TextButton addButton(String text) {
         TextButton button = new TextButton(text, skin);
         homeScreenTable.add(button).width(200).height(50);

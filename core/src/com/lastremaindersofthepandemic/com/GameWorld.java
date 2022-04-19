@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class GameWorld extends ApplicationAdapter {
@@ -32,23 +31,25 @@ public class GameWorld extends ApplicationAdapter {
     int direction_x, direction_y;
     int speed = 3;
 
+    //constructor
+    public GameWorld() {
+        create();
+        render();
+    }
+
 
 
     @Override
     public void create () {
-        batch = new SpriteBatch();
-
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,w,h);
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
+        batch = new SpriteBatch();
         tiledMap = new TmxMapLoader().load("harita1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-
         control = new Control(displayW, displayH, camera);
         Gdx.input.setInputProcessor(control);
+
     }
 
     @Override
@@ -99,7 +100,7 @@ public class GameWorld extends ApplicationAdapter {
         img.dispose();
     }
 
-    public void update() {
+    public void update(float delta) {
         if (control.down) {
             direction_y = -1;
         }
@@ -124,7 +125,11 @@ public class GameWorld extends ApplicationAdapter {
 
         //ScreenUtils.clear(1, 0, 0, 1);
         batch.begin();
-        batch.draw(img, 0, 0);
+        //batch.draw(img, 0, 0);
         batch.end();
+    }
+
+    public void show() {
+        Gdx.input.setInputProcessor(control);
     }
 }

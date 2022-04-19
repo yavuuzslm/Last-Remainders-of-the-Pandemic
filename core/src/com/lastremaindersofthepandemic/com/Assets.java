@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Assets {
     private static final AssetManager manager = new AssetManager();
-    public static final AssetDescriptor<Skin> skinDescriptor = new AssetDescriptor<>("uiskin.json", Skin.class, new SkinLoader.SkinParameter("uiskin.atlas"));
+    public static final AssetDescriptor<Skin> skinDescriptor = new AssetDescriptor<>("assets/uiskin.json", Skin.class, new SkinLoader.SkinParameter("assets/uiskin.atlas"));
 
 
 
