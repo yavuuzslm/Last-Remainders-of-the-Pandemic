@@ -44,7 +44,7 @@ public class GameWorld implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
         batch = new SpriteBatch();
-        tiledMap = new TmxMapLoader().load("lab.tmx");
+        tiledMap = new TmxMapLoader().load("harita1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         control = new Control(displayW, displayH, camera);
         Gdx.input.setInputProcessor(control);
