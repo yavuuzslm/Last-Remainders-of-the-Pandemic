@@ -14,7 +14,6 @@ public class Assets {
     }
 
     public void loadAll() {
-        manager.load("skin/ui-skin.atlas", TextureAtlas.class);
-        manager.load("skin/ui-skin.json", TextButton.TextButtonStyle.class);
+
     }
 }

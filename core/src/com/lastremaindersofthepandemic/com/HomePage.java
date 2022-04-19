@@ -19,12 +19,13 @@ public class HomePage extends ScreenAdapter {
     private Table homeScreenTable;
 
 
-
     public HomePage(AssetManager assetManager) {
         this.assetManager = assetManager;
-        skin = new Skin(Gdx.files.internal("skin/ui-skin.json"));
+        this.viewport = new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        this.stage = new Stage(viewport);
+        this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        this.homeScreenTable = new Table();
     }
-
     @Override
     public void show() {
         viewport = new ExtendViewport(1280, 720);
