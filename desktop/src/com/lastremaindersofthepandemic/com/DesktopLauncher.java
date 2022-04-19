@@ -2,7 +2,6 @@ package com.lastremaindersofthepandemic.com;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.lastremaindersofthepandemic.com.MainGame;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -14,9 +13,9 @@ public class DesktopLauncher {
 		config.setTitle("Last Remainder of the Pandemic");
 		config.setWindowedMode(1280, 720);
 		new Lwjgl3Application(new MainGame(), config);
-
-
-
 	}
+
+
+
 
 }
