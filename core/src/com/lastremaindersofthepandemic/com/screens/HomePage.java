@@ -1,11 +1,9 @@
-package com.lastremaindersofthepandemic.com;
+package com.lastremaindersofthepandemic.com.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,6 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.lastremaindersofthepandemic.com.utilities.Assets;
+import com.lastremaindersofthepandemic.com.MainGame;
+import com.lastremaindersofthepandemic.com.maps.GameWorld;
 
 public class HomePage implements Screen {
     private Stage stage;

@@ -1,4 +1,4 @@
-package com.lastremaindersofthepandemic.com;
+package com.lastremaindersofthepandemic.com.utilities;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;

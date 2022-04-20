@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.lastremaindersofthepandemic.com.screens.HomePage;
+import com.lastremaindersofthepandemic.com.utilities.Assets;
 
 
 public class MainGame extends Game {

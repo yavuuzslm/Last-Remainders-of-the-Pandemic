@@ -1,4 +1,4 @@
-package com.lastremaindersofthepandemic.com;
+package com.lastremaindersofthepandemic.com.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

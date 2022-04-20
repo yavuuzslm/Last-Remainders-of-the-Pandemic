@@ -1,4 +1,4 @@
-package com.lastremaindersofthepandemic.com;
+package com.lastremaindersofthepandemic.com.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.lastremaindersofthepandemic.com.utilities.Assets;
+import com.lastremaindersofthepandemic.com.MainGame;
 
 public class OptionsPanel implements Screen {
     //OptionsPanel includes help button music on/off button and volume slider

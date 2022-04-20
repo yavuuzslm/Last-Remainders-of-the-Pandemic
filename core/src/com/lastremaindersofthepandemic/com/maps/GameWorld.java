@@ -1,20 +1,16 @@
-package com.lastremaindersofthepandemic.com;
+package com.lastremaindersofthepandemic.com.maps;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
+import com.lastremaindersofthepandemic.com.utilities.Control;
+import com.lastremaindersofthepandemic.com.entities.Player;
 
 public class GameWorld implements Screen {
     SpriteBatch batch;
@@ -55,7 +51,7 @@ public class GameWorld implements Screen {
         tiledMap = new TmxMapLoader().load("lab.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
-        control = new Control(displayW, displayH, player.camera);
+        control = new Control(displayW, displayH, player.getCamera());
         Gdx.input.setInputProcessor(control);
 
         /*
@@ -72,7 +68,7 @@ public class GameWorld implements Screen {
         Gdx.gl.glClearColor(0,0,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        tiledMapRenderer.setView(player.camera);
+        tiledMapRenderer.setView(player.getCamera());
         tiledMapRenderer.render();
 
         //reset the direction values
@@ -99,8 +95,8 @@ public class GameWorld implements Screen {
         }
 
 
-        player.camera.position.x += direction_x*speed;
-        player.camera.position.y += direction_y*speed;
+        player.getCamera().position.x += direction_x*speed;
+        player.getCamera().position.y += direction_y*speed;
 
         batch.begin();
         player.draw(batch);
@@ -127,7 +123,7 @@ public class GameWorld implements Screen {
         }
          */
 
-        player.camera.update();
+        player.getCamera().update();
 
 
 

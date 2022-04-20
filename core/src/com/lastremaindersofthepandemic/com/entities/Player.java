@@ -1,11 +1,12 @@
-package com.lastremaindersofthepandemic.com;
+package com.lastremaindersofthepandemic.com.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.lastremaindersofthepandemic.com.entities.Entity;
 
-public class Player extends Entity{
+public class Player extends Entity {
     OrthographicCamera camera;
     public Player(Vector2 position) {
         super();
@@ -23,6 +24,12 @@ public class Player extends Entity{
         camera = new OrthographicCamera(pos.x, pos.y);
         camera.update();
 
+    }
+
+    //get camera
+
+    public OrthographicCamera getCamera() {
+        return camera;
     }
 
 
