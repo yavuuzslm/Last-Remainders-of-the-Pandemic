@@ -28,6 +28,7 @@ public class HomePage implements Screen {
     final private MainGame mainGame;
 
 
+
     public HomePage(MainGame game,AssetManager assetManager) {
         this.assetManager = assetManager;
         skin = assetManager.get(Assets.skinDescriptor);
@@ -45,7 +46,7 @@ public class HomePage implements Screen {
         addButton("Play").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mainGame.setScreen(new GameWorld());
+                mainGame.switchScreen("gameplay");
                 dispose();
             }
         }
@@ -53,7 +54,7 @@ public class HomePage implements Screen {
         addButton("Options").addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                mainGame.setScreen(new OptionsPanel(mainGame,assetManager));
+                mainGame.switchScreen("options");
                 dispose();
             }
         }

@@ -29,12 +29,12 @@ public class OptionsPanel implements Screen {
     private AssetManager assetManager;
     final private Skin skin;
     private Table homeScreenTable;
-    final private MainGame mainGame;
+    final private MainGame game;
 
-    public OptionsPanel(MainGame mainGame, AssetManager assetManager) {
+    public OptionsPanel(MainGame game, AssetManager assetManager) {
         this.assetManager = assetManager;
         skin = assetManager.get(Assets.skinDescriptor);
-        this.mainGame = mainGame;
+        this.game = game;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class OptionsPanel implements Screen {
                 new ChangeListener() {
                     @Override
                     public void changed(ChangeEvent event, Actor actor) {
-                        mainGame.setScreen(new HomePage(mainGame, assetManager));
+                        game.setScreen(new HomePage(game, assetManager));
                     }
                 }
         )
