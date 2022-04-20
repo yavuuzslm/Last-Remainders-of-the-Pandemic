@@ -11,8 +11,6 @@ public class Player extends Entity {
         PLAYER2,
         PLAYER3,
         PLAYER4
-
-
     }
     OrthographicCamera camera;
     PlayerNumber playerNumber;
@@ -32,6 +30,7 @@ public class Player extends Entity {
         speed = 2;
 
         camera = new OrthographicCamera(pos.x, pos.y);
+        //camera.zoom = .100f;
         camera.update();
 
     }
