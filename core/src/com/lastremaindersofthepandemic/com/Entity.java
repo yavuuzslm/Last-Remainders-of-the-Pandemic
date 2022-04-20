@@ -1,6 +1,7 @@
 package com.lastremaindersofthepandemic.com;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -21,8 +22,9 @@ public class Entity {
         pos3 = new Vector3();
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(texture, pos.x, pos.y, width, height);
+    public void draw(SpriteBatch batch, Sprite sprite) {
+        //batch.draw(texture, pos.x, pos.y, width, height);
+        sprite.draw(batch);
     }
 
 }
