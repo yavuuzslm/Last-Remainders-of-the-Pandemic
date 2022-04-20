@@ -49,7 +49,14 @@ public class HomePage implements Screen {
             }
         }
         );
-        addButton("Options");
+        addButton("Options").addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                mainGame.setScreen(new OptionsPanel(mainGame,assetManager));
+                dispose();
+            }
+        }
+        );
         addButton("About");
         addButton("Quit").addListener(new ClickListener()
         {
