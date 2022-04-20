@@ -54,14 +54,9 @@ public class GameWorld implements Screen {
         control = new Control(displayW, displayH, player.getCamera());
         Gdx.input.setInputProcessor(control);
 
-        /*
-        sb = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("shelby.png"));
-        sprite = new Sprite(texture);
-         */
+
 
     }
-
 
     @Override
     public void render(float delta) {
@@ -72,14 +67,12 @@ public class GameWorld implements Screen {
         tiledMapRenderer.render();
 
         //reset the direction values
-
         direction_x = 0;
         direction_y = 0;
 
-        /*
-        float oldX = camera.position.x;
-        float oldY = camera.position.y;
-         */
+        float oldX = player.getCamera().position.x;
+        float oldY = player.getCamera().position.y;
+
 
         if (control.down) {
             direction_y = -1;
@@ -94,56 +87,19 @@ public class GameWorld implements Screen {
             direction_x = -1;
         }
 
-
         player.getCamera().position.x += direction_x*speed;
         player.getCamera().position.y += direction_y*speed;
+
+        if(!isValid()) {
+            player.getCamera().position.x = oldX;
+            player.getCamera().position.y = oldY;
+        }
 
         batch.begin();
         player.draw(batch);
         batch.end();
-        //game draw
-
-
-        /*
-        batch.begin();
-        batch.setProjectionMatrix(camera.combined);
-        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-
-         */
-
-
-        /*
-        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(1);
-        Cell cell = layer.getCell((int) (camera.position.y / 32), (int) (camera.position.x / 32));
-        TiledMapTile tile = tiledMap.getTileSets().getTileSet(1).getTile(1030);
-
-        if (cell != null && cell.equals(tile)) {
-            camera.position.x = oldX;
-            camera.position.y = oldY;
-        }
-         */
 
         player.getCamera().update();
-
-
-
-
-
-        //new
-
-
-        //ScreenUtils.clear(1, 0, 0, 1);
-
-        /*
-        sb.begin();
-        sprite.setCenter(player.camera.position.x/2, player.camera.position.y/2);
-        sprite.draw(sb);
-        sb.end();
-        //batch.draw(img, 0, 0);
-        //batch.end();
-
-         */
-
     }
 
     @Override
@@ -172,6 +128,15 @@ public class GameWorld implements Screen {
         img.dispose();
     }
 
+    public boolean isValid() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(1);
+        TiledMapTileLayer.Cell cell = layer.getCell((int) ((player.getCamera().position.x + direction_x*player.texture.getWidth()/2)
+                / layer.getTileWidth()), (int) (player.getCamera().position.y + direction_y*player.texture.getHeight()/2)
+                / layer.getTileHeight());
+        TiledMapTile tile = tiledMap.getTileSets().getTileSet(1).getTile(1031);
+
+        return cell == null;
+    }
 
     public void show() {
         Gdx.input.setInputProcessor(control);
