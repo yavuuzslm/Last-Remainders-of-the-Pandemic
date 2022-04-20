@@ -7,16 +7,19 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameWorld implements Screen {
     SpriteBatch batch;
     Texture img;
-    OrthographicCamera camera;
+    //OrthographicCamera camera;
     Control control;
     TiledMap tiledMap;
     TiledMapRenderer tiledMapRenderer;
@@ -31,7 +34,12 @@ public class GameWorld implements Screen {
 
     //For movement
     int direction_x, direction_y;
-    int speed = 3;
+    int speed = 2;
+
+    SpriteBatch sb;
+    Sprite sprite;
+    Texture texture;
+    Player player;
 
     //constructor
     public GameWorld() {
@@ -40,14 +48,21 @@ public class GameWorld implements Screen {
 
 
     public void create() {
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.update();
+
+        Vector2 vector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        player = new Player(vector);
         batch = new SpriteBatch();
         tiledMap = new TmxMapLoader().load("lab.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        control = new Control(displayW, displayH, camera);
+
+        control = new Control(displayW, displayH, player.camera);
         Gdx.input.setInputProcessor(control);
+
+        /*
+        sb = new SpriteBatch();
+        texture = new Texture(Gdx.files.internal("shelby.png"));
+        sprite = new Sprite(texture);
+         */
 
     }
 
@@ -57,10 +72,18 @@ public class GameWorld implements Screen {
         Gdx.gl.glClearColor(0,0,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        tiledMapRenderer.setView(player.camera);
+        tiledMapRenderer.render();
+
         //reset the direction values
 
         direction_x = 0;
         direction_y = 0;
+
+        /*
+        float oldX = camera.position.x;
+        float oldY = camera.position.y;
+         */
 
         if (control.down) {
             direction_y = -1;
@@ -75,23 +98,55 @@ public class GameWorld implements Screen {
             direction_x = -1;
         }
 
-        camera.position.x += direction_x*speed;
-        camera.position.y += direction_y*speed;
-        camera.update();
 
+        player.camera.position.x += direction_x*speed;
+        player.camera.position.y += direction_y*speed;
+
+        batch.begin();
+        player.draw(batch);
+        batch.end();
         //game draw
+
+
+        /*
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
+         */
+
+
+        /*
+        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get(1);
+        Cell cell = layer.getCell((int) (camera.position.y / 32), (int) (camera.position.x / 32));
+        TiledMapTile tile = tiledMap.getTileSets().getTileSet(1).getTile(1030);
+
+        if (cell != null && cell.equals(tile)) {
+            camera.position.x = oldX;
+            camera.position.y = oldY;
+        }
+         */
+
+        player.camera.update();
+
+
+
+
+
         //new
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
+
 
         //ScreenUtils.clear(1, 0, 0, 1);
 
+        /*
+        sb.begin();
+        sprite.setCenter(player.camera.position.x/2, player.camera.position.y/2);
+        sprite.draw(sb);
+        sb.end();
         //batch.draw(img, 0, 0);
-        batch.end();
+        //batch.end();
+
+         */
 
     }
 
