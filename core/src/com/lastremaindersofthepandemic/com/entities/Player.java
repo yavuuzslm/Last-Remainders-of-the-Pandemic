@@ -4,19 +4,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.lastremaindersofthepandemic.com.entities.Entity;
 
 public class Player extends Entity {
+    public enum PlayerNumber {
+        PLAYER1,
+        PLAYER2,
+        PLAYER3,
+        PLAYER4
+
+
+    }
     OrthographicCamera camera;
-    public Player(Vector2 position) {
+    PlayerNumber playerNumber;
+    public Player(Vector2 position, PlayerNumber playerNumber) {
         super();
+        this.playerNumber = playerNumber;
+
         pos.x = position.x;
         pos.y = position.y;
 
         pos3.x = position.x;
         pos3.y = position.y;
 
-        texture = new Texture(Gdx.files.internal("shelby.png"));
+        setTexture(0, 0);
         width = texture.getWidth();
         height = texture.getHeight();
         speed = 2;
@@ -30,6 +40,17 @@ public class Player extends Entity {
 
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public void setTexture(int x, int y) {
+        String face;
+        if (x == -1) face = "left";
+        else if (x == 1) face = "right";
+        else if (y == 1) face = "back";
+        else face = "front";
+
+        String path = playerNumber.name() + "/" + face + ".png";
+        texture = new Texture(Gdx.files.internal(path));
     }
 
 

@@ -36,6 +36,8 @@ public class GameWorld implements Screen {
     Sprite sprite;
     Texture texture;
     Player player;
+    //It will be further changed in the new game option
+    Player.PlayerNumber playerNumber = Player.PlayerNumber.PLAYER1;
 
     //constructor
     public GameWorld() {
@@ -46,16 +48,13 @@ public class GameWorld implements Screen {
     public void create() {
 
         Vector2 vector = new Vector2(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        player = new Player(vector);
+        player = new Player(vector, playerNumber);
         batch = new SpriteBatch();
         tiledMap = new TmxMapLoader().load("lab.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         control = new Control(displayW, displayH, player.getCamera());
         Gdx.input.setInputProcessor(control);
-
-
-
     }
 
     @Override
@@ -86,6 +85,7 @@ public class GameWorld implements Screen {
         if (control.left) {
             direction_x = -1;
         }
+        player.setTexture(direction_x, direction_y);
 
         player.getCamera().position.x += direction_x*speed;
         player.getCamera().position.y += direction_y*speed;
