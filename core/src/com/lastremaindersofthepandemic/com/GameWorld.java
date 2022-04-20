@@ -7,7 +7,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -17,9 +16,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 public class GameWorld implements Screen {
     SpriteBatch batch;
     Texture img;
-    Texture texture;
-    Sprite sprite;
-    SpriteBatch sb;
     OrthographicCamera camera;
     Control control;
     TiledMap tiledMap;
@@ -48,17 +44,11 @@ public class GameWorld implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
         batch = new SpriteBatch();
-        tiledMap = new TmxMapLoader().load("adsız1.tmx");
+        tiledMap = new TmxMapLoader().load("harita1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         control = new Control(displayW, displayH, camera);
         Gdx.input.setInputProcessor(control);
 
-
-
-        sb = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("char.png"));
-        sprite = new Sprite(texture);
-        sprite.setCenter(camera.position.x, camera.position.y);
     }
 
 
@@ -97,10 +87,6 @@ public class GameWorld implements Screen {
         //new
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-
-        sb.begin();
-        sprite.draw(sb);
-        sb.end();
 
         //ScreenUtils.clear(1, 0, 0, 1);
 
